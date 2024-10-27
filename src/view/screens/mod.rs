@@ -1,5 +1,3 @@
-use std::sync::{Arc, Mutex};
-
 use edit_screen::EditorScreen;
 use eframe::egui;
 use home_screen::HomeScreen;

@@ -34,8 +34,8 @@ impl<'a> SidePanelItem<'a> {
     pub fn show_mini(&mut self, ui: &mut egui::Ui) -> Response {
         let rich_button = egui::ImageButton::new(self.icon.clone()).selected(self.selected);
 
-        let response = ui.add(rich_button);
-        response
+        
+        ui.add(rich_button)
     }
 
     pub fn show_with_text(&mut self, ui: &mut egui::Ui) -> Response {
@@ -53,8 +53,7 @@ impl<'a> SidePanelItem<'a> {
             y: ui.spacing().interact_size.y,
         };
 
-        let response = ui.add_sized(vec, rich_button);
 
-        response
+        ui.add_sized(vec, rich_button)
     }
 }

@@ -1,14 +1,11 @@
 #![windows_subsystem = "windows"]
-use std::time::Duration;
 
 #[warn(unused_variables)]
 #[warn(dead_code)]
 use eframe::egui::{self, Image};
-use eframe::egui::{Color32, Shadow};
 mod view;
 pub mod utils;
 use egui_dock::{DockArea, Style};
-use egui_notify::{Toast, Toasts};
 use utils::Utils;
 use view::navigation::side_panel_item::SidePanelItem;
 use view::screens::home_screen::HomeScreen;
@@ -101,7 +98,7 @@ impl MainEditor {
             |ui, _| {
                 ui.group(|ui| {
                     let len = self.side_panel_items.len();
-                    for (_i, item) in self.side_panel_items.iter_mut().enumerate() {
+                    for item in self.side_panel_items.iter_mut() {
                         
                         if item
                             .show(
