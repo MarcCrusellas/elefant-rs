@@ -1,13 +1,18 @@
 #![windows_subsystem = "windows"]
 use std::time::Duration;
 
-use eframe::egui::{Color32, Shadow};
 #[warn(unused_variables)]
 #[warn(dead_code)]
 use eframe::egui::{self, Image};
+use eframe::egui::{Color32, Shadow};
 mod view;
+pub mod utils;
+use egui_dock::{DockArea, Style};
 use egui_notify::{Toast, Toasts};
-use view::items::side_panel_item::SidePanelItem;
+use utils::Utils;
+use view::navigation::side_panel_item::SidePanelItem;
+use view::screens::home_screen::HomeScreen;
+use view::tree::TabViewer;
 
 fn main() -> eframe::Result {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
@@ -70,15 +75,6 @@ impl eframe::App for MainEditor {
 }
 
 impl MainEditor {
-    // fn show_selected_app(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
-    //     let selected_anchor = self.state.selected_anchor;
-    //     for (_name, anchor, app) in self.apps_iter_mut() {
-    //         if anchor == selected_anchor || ctx.memory(|mem| mem.everything_is_visible()) {
-    //             app.update(ctx, frame);
-    //         }
-    //     }
-    // }
-
     fn show_top_panel(&mut self, ctx: &egui::Context) {
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
             ui.horizontal(|ui| {
@@ -105,7 +101,8 @@ impl MainEditor {
             |ui, _| {
                 ui.group(|ui| {
                     let len = self.side_panel_items.len();
-                    for (i, item) in self.side_panel_items.iter_mut().enumerate() {
+                    for (_i, item) in self.side_panel_items.iter_mut().enumerate() {
+                        
                         if item
                             .show(
                                 ui,
@@ -115,43 +112,18 @@ impl MainEditor {
                             .clicked()
                         {
                             self.state.selected_item = item.id;
-                            Toast::basic("Message").duration(Some(Duration::from_secs(2))).show_progress_bar(true);
-
-                            Toasts::default().with_shadow(Shadow {
-                                offset: Default::default(),
-                                blur: 30.0,
-                                spread: 5.0,
-                                color: Color32::from_black_alpha(70),
-                            });
-                            
-                            // add a item to the tree
-                            self.state.tree.tiles.insert_pane(view::pane::Pane {
-                                p_type: item.id,
-                                view: match item.id {
-                                    view::screens::AnchorScreen::Home => {
-                                        Box::new(view::screens::home::HomeScreen {
-                                            name: "Home 1".to_owned(),
-                                        })
-                                    }
-                                    view::screens::AnchorScreen::Editor => {
-                                        Box::new(view::screens::editor::EditorScreen {
-                                            name: "editor ".to_owned(),
-                                        })
-                                    }
-                                    _ => Box::new(view::screens::home::HomeScreen {
-                                        name: "else".to_owned(),
-                                    }),
-                                },
-                            });
+                            self.state.tree.push_to_focused_leaf(
+                                Utils::get_wrapped(HomeScreen::default()),
+                            );
                         };
-                        if i != len - 1 {
-                            ui.separator();
-                        }
+
+                        // if i != len - 1 {
+                        //     ui.separator();
+                        // }
                     }
                 });
 
                 ui.with_layout(egui::Layout::bottom_up(egui::Align::BOTTOM), |ui| {
-                    // ui.allocate_space(ui.available_size()); // Make the side panel expand to max space
                     if ui.button("ddd").clicked() {
                         self.state.side_panel_expanded = !self.state.side_panel_expanded;
                     }
@@ -183,7 +155,27 @@ impl MainEditor {
 
     pub fn show_central_panel(&mut self, ctx: &egui::Context) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            self.state.tree.ui(&mut self.state.tree_behavior, ui);
+            let mut added_nodes = Vec::new();
+            DockArea::new(&mut self.state.tree)
+                .show_add_buttons(true)
+                .style({
+                    let mut style = Style::from_egui(ctx.style().as_ref());
+                    style.tab_bar.fill_tab_bar = true;
+                    style
+                })
+                .show(
+                    ctx,
+                    &mut TabViewer {
+                        added_nodes: &mut added_nodes,
+                    },
+                );
+    
+            added_nodes.drain(..).for_each(|(surface, node)| {
+                self.state.tree.set_focused_node_and_surface((surface, node));
+                let home_screen = HomeScreen::default();
+                self.state.tree.push_to_focused_leaf(Utils::get_wrapped(home_screen));
+                self.state.counter += 1;
+            });
         });
     }
 

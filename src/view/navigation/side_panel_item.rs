@@ -47,14 +47,12 @@ impl<'a> SidePanelItem<'a> {
             .fill(ui.style().visuals.extreme_bg_color) 
             .selected(self.selected)
             .wrap();
-        // let rich_button = egui::widgets::Button::new( text);
 
         let vec: Vec2 = Vec2 {
             x: ui.available_width(),
             y: ui.spacing().interact_size.y,
         };
 
-        // let response = ui.add_sized(ui.available_size(), rich_button);
         let response = ui.add_sized(vec, rich_button);
 
         response

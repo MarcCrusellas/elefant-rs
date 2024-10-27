@@ -1,10 +1,20 @@
 use eframe::egui::{self, RichText};
 
+use super::PaneComponent;
+
 pub struct EditorScreen {
     pub name: String,
 }
 
-impl super::communication::PaneComponent for EditorScreen {
+impl Default for EditorScreen {
+    fn default() -> Self {
+        Self {
+            name: "EditorScreen".to_owned(),
+        }
+    }
+}
+
+impl PaneComponent for EditorScreen {
     fn ui(&self, ui: &mut egui::Ui) {
         ui.label(
             RichText::new("Editor")
@@ -13,5 +23,9 @@ impl super::communication::PaneComponent for EditorScreen {
         );
         ui.separator();
         ui.label(self.name.clone());
+    }
+
+    fn tab_title(&self) -> String {
+        self.name.clone()
     }
 }
