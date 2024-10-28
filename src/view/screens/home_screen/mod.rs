@@ -2,6 +2,9 @@ use eframe::egui::{self, RichText};
 
 use super::PaneComponent;
 
+
+
+
 pub struct HomeScreen {
     pub name: String,
 }
@@ -15,7 +18,7 @@ impl Default for HomeScreen {
 }
 
 impl PaneComponent for HomeScreen {
-    fn ui(&self, ui: &mut egui::Ui)  {
+    fn ui(&mut self, ui: &mut egui::Ui)  {
         ui.label(
             RichText::new("Home")
                 .heading()
@@ -25,7 +28,13 @@ impl PaneComponent for HomeScreen {
         ui.label(self.name.clone());
     }
 
-    fn tab_title(&self) -> String {
+    fn tab_title(&mut self) -> String {
         self.name.clone()
+    }
+
+    fn save(&mut self) {}
+
+    fn close(&mut self) -> bool {
+        false
     }
 }

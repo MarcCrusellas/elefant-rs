@@ -2,6 +2,8 @@ pub mod navigation;
 
 pub mod screens;
 
-pub mod vm;
+pub mod state;
 
 pub mod tree;
+
+pub mod main_window;

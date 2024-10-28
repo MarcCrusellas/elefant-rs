@@ -1,6 +1,8 @@
 use std::sync::{Arc, Mutex};
 
+
 use egui_dock::DockState;
+
 use crate::utils::{Utils, Wrapped};
 
 use super::screens::{ home_screen::HomeScreen, AnchorScreen, PaneComponent};
@@ -14,12 +16,12 @@ pub struct State {
 
 impl Default for State {
     fn default() -> Self {
-        let home_screen = HomeScreen::default();
-        let tree: DockState<Arc<Mutex<dyn PaneComponent>>> = DockState::new(vec![Utils::get_wrapped(home_screen)]);
+        // let home_screen = HomeScreen::default();
+        let tree: DockState<Arc<Mutex<dyn PaneComponent>>> = DockState::new(vec![]);
 
         Self {
             selected_item: AnchorScreen::Home,
-            side_panel_expanded: true,
+            side_panel_expanded: false,
             tree,
             counter: 1
         }

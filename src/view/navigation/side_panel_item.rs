@@ -7,21 +7,10 @@ pub struct SidePanelItem<'a> {
     pub id: AnchorScreen,
     pub name: String,
     pub selected: bool,
-    pub icon: egui::Image<'a>,
+    pub icon: Image<'a>,
 }
 
 impl<'a> SidePanelItem<'a> {
-    pub fn new(name: &str) -> Self {
-        let file_path = "../../../assets/editor.png";
-        let image = Image::from_uri(format!("file://{file_path}"));
-        Self {
-            id : AnchorScreen::Undefined,
-            name: name.to_owned(),
-            selected: false,
-            icon: image,
-        }
-    }
-
     pub fn show(&mut self, ui: &mut egui::Ui, expanded: bool, is_selected: bool) -> Response {
         self.selected = is_selected;
         if expanded {

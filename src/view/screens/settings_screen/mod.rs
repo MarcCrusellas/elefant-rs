@@ -15,7 +15,7 @@ impl Default for SettingsScreen {
 }
 
 impl PaneComponent for SettingsScreen {
-    fn ui(&self, ui: &mut egui::Ui)  {
+    fn ui(&mut self, ui: &mut egui::Ui)  {
         ui.label(
             RichText::new("Settings")
                 .heading()
@@ -25,7 +25,9 @@ impl PaneComponent for SettingsScreen {
         ui.label(self.name.clone());
     }
 
-    fn tab_title(&self) -> String {
+    fn tab_title(&mut self) -> String {
         self.name.clone()
     }
+
+    fn save(&mut self) {}
 }

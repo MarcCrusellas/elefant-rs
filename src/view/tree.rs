@@ -1,8 +1,6 @@
 use std::sync::{Arc, Mutex};
-
 use eframe::egui;
 use egui_dock::{NodeIndex, SurfaceIndex};
-
 use super::screens::PaneComponent;
 
 pub struct TabViewer<'a> {
@@ -43,8 +41,8 @@ impl egui_dock::TabViewer for TabViewer<'_> {
         true
     }
     
-    fn on_close(&mut self, _tab: &mut Self::Tab) -> bool {
-        true
+    fn on_close(&mut self, tab: &mut Self::Tab) -> bool {
+        tab.lock().unwrap().close()
     }
     
     fn add_popup(&mut self, _ui: &mut egui::Ui, _surface: SurfaceIndex, _node: NodeIndex) {}

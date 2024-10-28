@@ -5,31 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/app.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        
+        {
             "type": "lldb",
             "request": "launch",
             "name": "Debug executable 'rust-egui-example'",
             "cargo": {
                 "args": [
-                    "build",
-                    "--bin=rust-egui-example",
-                    "--package=rust-egui-example"
-                ],
-                "filter": {
-                    "name": "rust-egui-example",
-                    "kind": "bin"
-                }
-            },
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug unit tests in executable 'rust-egui-example'",
-            "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
+                    "run",
                     "--bin=rust-egui-example",
                     "--package=rust-egui-example"
                 ],

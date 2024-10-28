@@ -10,9 +10,16 @@ pub mod home_screen;
 pub mod settings_screen;
 
 pub trait PaneComponent {
+    fn ui(&mut self, ui: &mut egui::Ui);
     
-    fn ui(&self, ui: &mut egui::Ui);
-    fn tab_title(&self) -> String;
+    fn tab_title(&mut self) -> String;
+
+    fn save(&mut self);
+
+    // If false is returned, the tab will not be closed
+    fn close(&mut self) -> bool {
+        true
+    }
 }
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Default)]
