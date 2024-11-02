@@ -73,11 +73,6 @@ struct Component {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
-struct Rectangle {
-    component: Component,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
 struct Document {
     title: String,
     description: String,

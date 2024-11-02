@@ -1,12 +1,7 @@
-use std::sync::Arc;
-
 use super::PaneComponent;
-use eframe::{
-    egui::{self, pos2, vec2, Color32, Rect, RichText, Vec2},
-    egui_glow,
-};
-use egui_wgpu::Callback;
+use eframe::egui::{self, Color32, Rect, RichText, Vec2};
 pub mod json;
+pub mod shape;
 
 pub struct EditorScreen {
     pub name: String,
@@ -54,7 +49,8 @@ impl PaneComponent for EditorScreen {
             //     self.rect = Some(Rect::from_min_size(pos2(20.0, 20.0), vec2(30.0, 30.0)));
             // }
 
-            let (rect, response) = ui.allocate_exact_size(Vec2::new(30.0, 30.0), egui::Sense::drag());
+            let (rect, response) =
+                ui.allocate_exact_size(Vec2::new(30.0, 30.0), egui::Sense::drag());
             let response: egui::Response =
                 ui.allocate_rect(self.rect.unwrap(), egui::Sense::drag());
 
