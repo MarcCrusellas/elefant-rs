@@ -3,9 +3,9 @@ use std::sync::{Arc, Mutex};
 
 use egui_dock::DockState;
 
-use crate::utils::{Utils, Wrapped};
+use crate::utils::Wrapped;
 
-use super::screens::{ home_screen::HomeScreen, AnchorScreen, PaneComponent};
+use super::screens::{ AnchorScreen, PaneComponent};
 
 pub struct State {
     pub selected_item : AnchorScreen,

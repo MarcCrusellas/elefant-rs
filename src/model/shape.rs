@@ -23,9 +23,8 @@
 //! Event contains the event settings for the shape.
 //! ```
 //!
-use std::default;
 
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::{Deserialize, Serialize};
 
 use super::{events::Events, shape_props::*};
 
