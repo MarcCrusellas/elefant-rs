@@ -1,7 +1,6 @@
 use super::PaneComponent;
 use eframe::egui::{self, Color32, Rect, RichText, Vec2};
 pub mod json;
-pub mod shape;
 
 pub struct EditorScreen {
     pub name: String,

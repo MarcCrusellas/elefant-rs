@@ -2,7 +2,7 @@
 
 mod view;
 mod utils;
-
+mod model;
 use eframe::egui;
 use view::main_window::MainEditor;
 
