@@ -24,12 +24,12 @@
 //! ```
 //!
 
-use serde::{Deserialize, Serialize};
+// use serde::{Deserialize, Serialize};
 
 use super::{events::Events, shape_props::*};
 
 // all attributes of a shape are optional
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+#[derive(/*/*Serialize, Deserialize,*/ */ Debug, Clone, PartialEq, Default)]
 pub struct ShapeModel {
     pub id: i16,
     pub name: String,

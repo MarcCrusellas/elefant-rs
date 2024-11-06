@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+// use serde::{Deserialize, Serialize};
 
 /// view types
 /// base view
@@ -32,20 +32,20 @@ use serde::{Deserialize, Serialize};
 ///    - Appearance
 ///    - Children: Vec<Component>
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Eq, Hash)]
 enum Visibility {
     Hidden,
     Visible,
     Exact(i16),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Eq, Hash)]
 enum  BoxShadow {
     InnerShadow,
     OuterShadow,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Eq, Hash)]
 struct Position {
     height: i16,
     width: i16,
@@ -55,7 +55,7 @@ struct Position {
     rotation: i16,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Eq, Hash)]
 struct Appearance {
     background_color: String,
     border_color: String,
@@ -65,14 +65,14 @@ struct Appearance {
     visibility: Visibility,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Eq, Hash)]
 struct Component {
     name: String,
     position: Position,
     appearance: Appearance,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Eq, Hash)]
 struct Document {
     title: String,
     description: String,

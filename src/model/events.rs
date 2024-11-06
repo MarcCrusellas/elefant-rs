@@ -1,9 +1,9 @@
 #![allow(unused)]
 
-use serde::{Deserialize, Serialize};
+// use serde::{Deserialize, Serialize};
 
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq)]
 #[derive(Default)]
 pub struct EventPrototype {
     pub is_available: bool,
@@ -27,7 +27,7 @@ impl EventPrototype {
     fn atach_script(&mut self, /* element */) {}
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Default)]
+#[derive(/*Serialize, Deserialize,*/  Debug, Clone, PartialEq, Default)]
 pub struct Events {
     pub click: EP,
     pub hover: EP,

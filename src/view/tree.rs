@@ -1,14 +1,13 @@
-use std::sync::{Arc, Mutex};
 use eframe::egui;
 use egui_dock::{NodeIndex, SurfaceIndex};
-use super::screens::PaneComponent;
+use super::state::TabContentView;
 
 pub struct TabViewer<'a> {
     pub added_nodes: &'a mut Vec<(SurfaceIndex, NodeIndex)>,
 }
 
 impl egui_dock::TabViewer for TabViewer<'_> {
-    type Tab = Arc<Mutex<dyn PaneComponent>>;
+    type Tab = TabContentView;
 
     fn title(&mut self, tab: &mut Self::Tab) -> egui::WidgetText {
         tab.lock().unwrap().tab_title().into()

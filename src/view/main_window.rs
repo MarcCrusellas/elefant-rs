@@ -1,3 +1,4 @@
+use bevy::prelude::Resource;
 use eframe::egui::{self, Image};
 use egui_dock::{DockArea, Style};
 
@@ -5,10 +6,11 @@ use crate::utils::Utils;
 
 use super::{navigation::side_panel_item::SidePanelItem, screens::{home_screen::HomeScreen, AnchorScreen}, state, tree::TabViewer};
 
+#[derive(Resource)]
 pub struct MainEditor {
-    text: String,
-    state: state::State,
-    side_panel_items: Vec<SidePanelItem<'static>>,
+    pub text: String,
+    pub state: state::State,
+    pub side_panel_items: Vec<SidePanelItem<'static>>,
 }
 
 impl Default for MainEditor {
@@ -43,6 +45,9 @@ impl Default for MainEditor {
 }
 
 impl eframe::App for MainEditor {
+
+    
+
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         self.show_top_panel(ctx);
         self.show_side_panel(ctx);
@@ -58,7 +63,18 @@ impl eframe::App for MainEditor {
 }
 
 impl MainEditor {
-    fn show_top_panel(&mut self, ctx: &egui::Context) {
+
+
+    fn update(&mut self, ctx: &egui::Context) {
+        self.show_top_panel(ctx);
+        self.show_side_panel(ctx);
+        self.show_footer(ctx);
+        self.show_central_panel(ctx);
+        self.keybindings(ctx);
+
+    }
+
+    pub fn show_top_panel(&mut self, ctx: &egui::Context) {
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
             ui.horizontal(|ui| {
                 egui::menu::bar(ui, |ui| {
